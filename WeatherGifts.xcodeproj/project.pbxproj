@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FF472FF5256F3A2900B785CD /* DailyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF472FF4256F3A2900B785CD /* DailyTableViewCell.swift */; };
+		FF472FFD2570B43800B785CD /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF472FFC2570B43800B785CD /* HourlyCollectionViewCell.swift */; };
 		FF61952B256C0BAA003B4396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61952A256C0BAA003B4396 /* AppDelegate.swift */; };
 		FF61952D256C0BAA003B4396 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61952C256C0BAA003B4396 /* SceneDelegate.swift */; };
 		FF61952F256C0BAA003B4396 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF61952E256C0BAA003B4396 /* LocationListViewController.swift */; };
@@ -23,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		FF472FF4256F3A2900B785CD /* DailyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTableViewCell.swift; sourceTree = "<group>"; };
+		FF472FFC2570B43800B785CD /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		FF619527256C0BAA003B4396 /* WeatherGifts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherGifts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF61952A256C0BAA003B4396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF61952C256C0BAA003B4396 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 			children = (
 				FF61952A256C0BAA003B4396 /* AppDelegate.swift */,
 				FF61952C256C0BAA003B4396 /* SceneDelegate.swift */,
+				FF472FFC2570B43800B785CD /* HourlyCollectionViewCell.swift */,
 				FF61952E256C0BAA003B4396 /* LocationListViewController.swift */,
 				FF619544256C0CA7003B4396 /* WeatherLocation.swift */,
 				FF8CEC66256EF47000FB65F7 /* APIKey.swift */,
@@ -164,6 +167,7 @@
 				FF61952B256C0BAA003B4396 /* AppDelegate.swift in Sources */,
 				FF8CEC67256EF47000FB65F7 /* APIKey.swift in Sources */,
 				FF61952D256C0BAA003B4396 /* SceneDelegate.swift in Sources */,
+				FF472FFD2570B43800B785CD /* HourlyCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

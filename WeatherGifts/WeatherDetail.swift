@@ -13,6 +13,12 @@ private let dateformatter: DateFormatter = {
     return dateFormatter
 }()
 
+private let hourformatter: DateFormatter = {
+    let  hourFormatter = DateFormatter()
+    hourFormatter.dateFormat = "ha"
+    return hourFormatter
+}()
+
 struct DailyWeather {
     var dailyIcon: String
     var dailyWeekday: String
@@ -21,12 +27,19 @@ struct DailyWeather {
     var dailyLow: Int
 }
 
+struct HourlyWeather: Codable {
+    var hourly: String
+    var hourlyTemperature: Int
+    var hourlyIcon: String
+}
+
 class WeatherDetail: WeatherLocation{
     
     private struct Result: Codable {
         var timezone: String
         var current: Current
         var daily: [Daily]
+        var hourly: [Hourly]
     }
     
     private struct Current:Codable {
@@ -35,7 +48,7 @@ class WeatherDetail: WeatherLocation{
         var weather: [Weather]
     }
     
-    private struct Weather: Codable {
+    struct Weather: Codable {
         var description: String
         var icon: String
     }
@@ -43,6 +56,12 @@ class WeatherDetail: WeatherLocation{
     private struct Daily: Codable {
         var dt: TimeInterval
         var temp: Temp
+        var weather: [Weather]
+    }
+    
+    struct Hourly: Codable {
+        var dt: TimeInterval
+        var temp: Double
         var weather: [Weather]
     }
     
@@ -57,6 +76,7 @@ class WeatherDetail: WeatherLocation{
     var summary = ""
     var dailyIcon = ""
     var dailyWeatherData: [DailyWeather] = []
+    var hourlyWeatherData: [HourlyWeather] = []
     
     func getData(complition: @escaping () -> ()) {
         
@@ -74,7 +94,7 @@ class WeatherDetail: WeatherLocation{
                 print("😡 ERROR: \(error.localizedDescription)")
             }
             do {
-//                let json = try JSONSerialization.jsonObject(with: data!, options: [])
+                //                let json = try JSONSerialization.jsonObject(with: data!, options: [])
                 let result = try JSONDecoder().decode(Result.self, from: data!)
                 self.timezone = result.timezone
                 self.currentTime = result.current.dt
@@ -91,6 +111,16 @@ class WeatherDetail: WeatherLocation{
                     let dailyLow = Int(result.daily[index].temp.min.rounded())
                     let dailyWeather = DailyWeather(dailyIcon: dailyIcon, dailyWeekday: dailyWeekDay, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow)
                     self.dailyWeatherData.append(dailyWeather)
+                }
+                
+                for index in 0..<result.hourly.count {
+                    let hourlyDate = Date(timeIntervalSince1970: result.hourly[index].dt)
+                    hourformatter.timeZone = TimeZone(identifier: result.timezone)
+                    let hour = hourformatter.string(from: hourlyDate)
+                    let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
+                    let hourlyTemperature = Int(result.hourly[index].temp.rounded())
+                    let hourlyWeather = HourlyWeather(hourly: hour, hourlyTemperature: hourlyTemperature, hourlyIcon: hourlyIcon)
+                    self.hourlyWeatherData.append(hourlyWeather)
                 }
             } catch {
                 print("😡 JSON ERROR: \(error.localizedDescription)")
@@ -125,10 +155,43 @@ class WeatherDetail: WeatherLocation{
             newFileName = "13d@2x.png"
         case "50d", "50n":
             newFileName = "50d@2x.png"
-
+            
         default:
             newFileName = " "
         }
         return newFileName
+    }
+    
+    private func systemNameFromId(idHour: Int, icon: String) -> String {
+        switch  idHour {
+        case 200...299:
+            return "cloud.bolt.rain"
+        case 300...399:
+            return "cloud.drizzle"
+        case 500, 501, 520, 521, 531:
+            return "cloud.rain"
+        case 511, 611...616:
+            return "sleet"
+        case 600...602, 620...622:
+            return "snow"
+        case 701, 711, 741:
+            return "cloud.fog"
+        case 721:
+            return (icon.hasSuffix("d") ? "sun.haze" : "cloud.fog")
+        case 731, 751, 761, 762:
+            return (icon.hasSuffix("d") ? "sun.dust" : "cloud.fog")
+        case 771:
+            return "wind"
+        case 781:
+            return "tornado"
+        case 800:
+            return (icon.hasSuffix("d") ? "sun.max" : "moon")
+        case 801, 802:
+            return (icon.hasSuffix("d") ? "cloud.sun" : "cloud.moon")
+        case 803, 804:
+            return "cloud"
+        default:
+            return ""
+        }
     }
 }
