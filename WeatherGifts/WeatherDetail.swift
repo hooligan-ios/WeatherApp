@@ -27,7 +27,7 @@ struct DailyWeather {
     var dailyLow: Int
 }
 
-struct HourlyWeather: Codable {
+struct HourlyWeather {
     var hourly: String
     var hourlyTemperature: Int
     var hourlyIcon: String
@@ -49,6 +49,7 @@ class WeatherDetail: WeatherLocation{
     }
     
     struct Weather: Codable {
+        var id: Int
         var description: String
         var icon: String
     }
@@ -113,14 +114,18 @@ class WeatherDetail: WeatherLocation{
                     self.dailyWeatherData.append(dailyWeather)
                 }
                 
-                for index in 0..<result.hourly.count {
-                    let hourlyDate = Date(timeIntervalSince1970: result.hourly[index].dt)
-                    hourformatter.timeZone = TimeZone(identifier: result.timezone)
-                    let hour = hourformatter.string(from: hourlyDate)
-                    let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
-                    let hourlyTemperature = Int(result.hourly[index].temp.rounded())
-                    let hourlyWeather = HourlyWeather(hourly: hour, hourlyTemperature: hourlyTemperature, hourlyIcon: hourlyIcon)
-                    self.hourlyWeatherData.append(hourlyWeather)
+                let lastHour = min(24, result.hourly.count)
+                if lastHour  > 0 {
+                    for index in 1...lastHour {
+                        let hourlyDate = Date(timeIntervalSince1970: result.hourly[index].dt)
+                        hourformatter.timeZone = TimeZone(identifier: result.timezone)
+                        let hour = hourformatter.string(from: hourlyDate)
+//                        let hourlyIcon = self.fileNameForIcon(icon: result.hourly[index].weather[0].icon)
+                        let hourlyIcon = self.systemNameFromId(id: result.hourly[index].weather[0].id, icon: result.hourly[index].weather[0].icon)
+                        let hourlyTemperature = Int(result.hourly[index].temp.rounded())
+                        let hourlyWeather = HourlyWeather(hourly: hour, hourlyTemperature: hourlyTemperature, hourlyIcon: hourlyIcon)
+                        self.hourlyWeatherData.append(hourlyWeather)
+                    }
                 }
             } catch {
                 print("😡 JSON ERROR: \(error.localizedDescription)")
@@ -162,36 +167,26 @@ class WeatherDetail: WeatherLocation{
         return newFileName
     }
     
-    private func systemNameFromId(idHour: Int, icon: String) -> String {
-        switch  idHour {
-        case 200...299:
-            return "cloud.bolt.rain"
-        case 300...399:
-            return "cloud.drizzle"
-        case 500, 501, 520, 521, 531:
-            return "cloud.rain"
-        case 511, 611...616:
-            return "sleet"
-        case 600...602, 620...622:
-            return "snow"
-        case 701, 711, 741:
-            return "cloud.fog"
+    private func systemNameFromId(id: Int, icon: String) -> String {
+        switch  id {
+        case 200...299: return "cloud.bolt.rain"
+        case 300...399: return "cloud.drizzle"
+        case 500, 501, 520, 521, 531: return "cloud.rain"
+        case 511, 611...616: return "sleet"
+        case 600...602, 620...622: return "snow"
+        case 701, 711, 741: return "cloud.fog"
         case 721:
             return (icon.hasSuffix("d") ? "sun.haze" : "cloud.fog")
         case 731, 751, 761, 762:
             return (icon.hasSuffix("d") ? "sun.dust" : "cloud.fog")
-        case 771:
-            return "wind"
-        case 781:
-            return "tornado"
-        case 800:
-            return (icon.hasSuffix("d") ? "sun.max" : "moon")
+        case 771: return "wind"
+        case 781: return "tornado"
+        case 800: return (icon.hasSuffix("d") ? "sun.max" : "moon")
         case 801, 802:
             return (icon.hasSuffix("d") ? "cloud.sun" : "cloud.moon")
-        case 803, 804:
-            return "cloud"
+        case 803, 804: return "cloud"
         default:
-            return ""
+            return "questionmark.diamond"
         }
     }
 }

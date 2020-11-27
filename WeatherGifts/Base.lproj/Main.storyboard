@@ -68,7 +68,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gJz-tj-XVR">
                                                 <rect key="frame" x="0.0" y="0.0" width="286" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="TDG-i7-d7l"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="TDG-i7-d7l"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,7 +77,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7P-gm-1vZ">
                                                 <rect key="frame" x="0.0" y="24" width="286" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="5dR-pR-eep"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="5dR-pR-eep"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,7 +92,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SxN-Gp-YiH">
                                                 <rect key="frame" x="0.0" y="149" width="286" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="8IL-ia-Av5"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="8IL-ia-Av5"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,7 +110,7 @@
                                     <constraint firstItem="c8l-2L-kPa" firstAttribute="leading" secondItem="LaZ-yp-I06" secondAttribute="trailing" constant="8" id="JbC-fX-hTb"/>
                                     <constraint firstAttribute="bottom" secondItem="LaZ-yp-I06" secondAttribute="bottom" id="Ua2-mq-oYA"/>
                                     <constraint firstItem="c8l-2L-kPa" firstAttribute="top" secondItem="Y4M-N9-2sv" secondAttribute="top" constant="8" id="biP-qH-00B"/>
-                                    <constraint firstAttribute="height" constant="225" id="xJE-ui-l4W"/>
+                                    <constraint firstAttribute="height" constant="225" id="rom-ju-KL5"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s9e-vP-I3y">
@@ -206,7 +206,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="z5l-OT-Swk" customClass="HourlyCollectionViewCell" customModule="WeatherGifts" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HourlyCell" id="z5l-OT-Swk" customClass="HourlyCollectionViewCell" customModule="WeatherGifts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xBm-BI-GB3">

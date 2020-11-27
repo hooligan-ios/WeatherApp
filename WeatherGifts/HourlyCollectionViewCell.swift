@@ -13,12 +13,12 @@ class HourlyCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var hourlyTemperature: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     
-//    var hourlyWeather: hourlyWeather! {
-//        didSet {
-//            hourlyLabel.text = hourlyWeather.hour
-//            hourlyTemperature.text = "\(hourlyWeather.hourlyTemperature)°"
-//            iconImageView.image = UIImage(systemName: hourlyWeather.hourlyIcon)
-//        }
-//    }
+    var hourlyWeather: HourlyWeather! {
+        didSet {
+            hourlyLabel.text = hourlyWeather.hourly
+            hourlyTemperature.text = "\(hourlyWeather.hourlyTemperature)°"
+            iconImageView.image = UIImage(systemName: hourlyWeather.hourlyIcon)
+        }
+    }
     
 }
